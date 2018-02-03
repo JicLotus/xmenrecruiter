@@ -1,11 +1,10 @@
 package test.java.com.testng;
 
-
-
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-import core.Human;
+import main.java.Human;
+
+import static org.junit.Assert.*;
 
 
 public class CoreTests {
