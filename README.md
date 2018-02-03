@@ -6,10 +6,16 @@
   <img width="100" height="100" src="https://github.com/JicLotus/xmenrecruiter/blob/master/xmenImage.jpg">
 </p>
 
+# Get Started:
+
+- Install Maven
+- Install Java 8
+
 # Execution:
 
 mvn compile
-
 mvn package
+mvn exec:java -Dexec.mainClass="main.java.com.testng.apiRest"
 
-mvn exec:java -Dexec.mainClass="TestRest"
+
+
