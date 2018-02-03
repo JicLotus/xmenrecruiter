@@ -2,7 +2,7 @@
 
 
 
-![alt tag](https://github.com/JicLotus/xmenrecruiter/blob/master/xmenImage.png)
+![alt tag](https://github.com/JicLotus/xmenrecruiter/blob/master/xmenImage.jpg)
 
 
 
