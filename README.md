@@ -13,9 +13,9 @@
 
 # Execution:
 
-mvn compile
-mvn package
-mvn exec:java -Dexec.mainClass="main.java.com.testng.apiRest"
+- mvn compile
+- mvn package
+- mvn exec:java -Dexec.mainClass="main.java.com.testng.apiRest"
 
 
 
