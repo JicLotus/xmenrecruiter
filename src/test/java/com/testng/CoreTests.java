@@ -2,9 +2,14 @@ package test.java.com.testng;
 
 import org.junit.Test;
 
-import main.java.Human;
+import main.java.com.testng.Human;
 
 import static org.junit.Assert.*;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 
 public class CoreTests {
@@ -92,6 +97,50 @@ public class CoreTests {
 		Human human = new Human();
 		
 		assertFalse(human.isMutant(dna));
+	}
+	
+	
+	@Test
+	public void DnaExample3Pass() {
+		
+		String[] dna = {"ATGCGA"
+					   ,"CAGTAC",
+					    "TTAATT",
+					    "AGACGG",
+					    "GCGTCA",
+					    "TCTTTT"}; 
+		
+		Human human = new Human();
+		boolean response = human.isMutant(dna);
+		assertTrue(response);
+	}
+	
+	
+	@Test
+	public void DnaStress() {
+		
+		String fileName = "stressMatrix.txt";
+
+		try {
+		
+			Stream<String> stream = Files.lines(Paths.get(fileName));
+
+			Object[] dnaO = stream.toArray();
+			
+		    String[] dna = new String[dnaO.length];
+		    for (int i = 0; i < dnaO.length; i++)
+		    	dna[i] = String.valueOf(dnaO[i]);
+			
+			Human human = new Human();
+			boolean response = human.isMutant(dna);
+			
+			assertTrue(response);
+		}
+		catch(IOException e) 
+		{
+			e.printStackTrace();
+		}
+		
 	}
 	
 }
