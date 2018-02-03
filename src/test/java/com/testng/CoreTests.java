@@ -1,13 +1,23 @@
-package xmenrecruitercore;
+package test.java.com.testng;
 
-import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
 
-class CoreTests {
+import org.junit.Test;
+import static org.junit.Assert.*;
 
+import core.Human;
+
+
+public class CoreTests {
+
+	
+	public CoreTests() 
+	{
+		
+	}
+	
 	@Test
-	void DnaExamplePass() {
+	public void DnaExamplePass() {
 		
 		String[] dna = {"ATGCGA"
 					   ,"CAGTGC",
@@ -23,9 +33,8 @@ class CoreTests {
 		assertTrue(isMutant);
 	}
 
-	
 	@Test
-	void DnaExample2Pass() {
+	public void DnaExample2Pass() {
 		
 		String[] dna = {"ATGCGA"
 					   ,"CAGTGC",
@@ -41,7 +50,7 @@ class CoreTests {
 	
 	
 	@Test
-	void DnaExample3Fail() {
+	public void DnaExample3Fail() {
 		
 		String[] dna = {"ATGCGA"
 					   ,"CAGTGC",
@@ -56,7 +65,7 @@ class CoreTests {
 	}
 	
 	@Test
-	void DnaExampleFail() {
+	public void DnaExampleFail() {
 		
 		String[] dna = {"ATGCAA"
 					   ,"CAGTGC",
@@ -72,7 +81,7 @@ class CoreTests {
 	
 	
 	@Test
-	void DnaExample2Fail() {
+	public void DnaExample2Fail() {
 		
 		String[] dna = {"ATGCGA"
 					   ,"CAGTGC",
@@ -85,8 +94,5 @@ class CoreTests {
 		
 		assertFalse(human.isMutant(dna));
 	}
-	
-	 
-	
 	
 }

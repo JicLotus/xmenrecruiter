@@ -1,4 +1,5 @@
-package xmenrecruitercore;
+package core;
+
 
 import java.util.ArrayList;
 
