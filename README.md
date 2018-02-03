@@ -1,3 +1,5 @@
+<img src="https://travis-ci.org/JicLotus/xmenrecruiter.svg?branch=master">
+
 # xmenrecruiter
 
 <p align="center">
