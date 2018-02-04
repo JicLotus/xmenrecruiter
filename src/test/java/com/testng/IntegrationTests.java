@@ -1,8 +1,6 @@
 package test.java.com.testng;
 
-import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -24,27 +22,36 @@ public class IntegrationTests {
     
 	
 	@Test
-	  public void simpleIntegrationTestHas200ForCodeResponse() 
+	public void simpleIntegrationTestHas200ForCodeResponse() 
 	{
 		try {
-			int response = sendPost("{ “dna”:[\"ATGCGA\"	,\"CAGTGC\",\"TTATGT\",\"AGAAGG\",\"CCCCTA\",\"TCACTG\"] }");
+			String value = "{ dna:[\"ATGCGA\",\"CAGTGC\",\"TTATGT\",\"AGAAGG\",\"CCCCTA\",\"TCACTG\"] }";
+			byte ptext[] = value.getBytes("ISO-8859-1"); 
+			String postData = new String(ptext, "UTF-8");
+			int response = sendPost(postData);
 			assertTrue(200==response);
 		}catch(Exception ex)
 		{
+			fail(ex.toString());
 		}
 	}
 
 	@Test
-	  public void simpleIntegrationTestHas300ForCodeResponse() 
+	public void simpleIntegrationTestHas300ForCodeResponse() 
 	{
 		try {
-			int response = sendPost("{ “dna”:[\"ATGCGA\",\"CAGTGC\",\"TTATGT\",\"AGTAAG\",\"ACCCTA\",\"TCACTG\"] }");
+			String value = "{ dna:[\"ATGCGA\",\"CAGTGC\",\"TTATGT\",\"AGTAAG\",\"ACCCTA\",\"TCACTG\"] }";
+			byte ptext[] = value.getBytes("ISO-8859-1"); 
+			String postData = new String(ptext, "UTF-8");
+			int response = sendPost(postData);
 			assertTrue(403==response);
 		}catch(Exception ex) 
 		{
-			assertTrue(ex.toString().contains("403"));
+			fail(ex.toString());
 		}
 	}
+	
+	
 	
 	private int sendPost(String parameters) throws Exception {
 
@@ -57,7 +64,7 @@ public class IntegrationTests {
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-		String urlParameters = parameters;//"sn=C02G8416DRJM&cn=&locale=&caller=&num=12345";
+		String urlParameters = parameters;
 
 		// Send post request
 		con.setDoOutput(true);
