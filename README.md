@@ -17,5 +17,13 @@
 - mvn package
 - mvn exec:java -Dexec.mainClass="main.java.com.testng.apiRest"
 
+# Docker
+
+- Install Docker
+- Go into xmenrecruiter/Dockerfile respository folder
+- Execute: sudo docker build -t xmenrecruiter .
+- Execute: sudo docker run -t -i xmenrecruiter xmenrecruiter
+- Execute if you want to start spark api/rest : mvn exec:java -Dexec.mainClass="main.java.com.testng.apiRest"
+- Execute if you want to start running tests: mvn -Dtest:test.java.com.testng.CoreTest test
 
 
