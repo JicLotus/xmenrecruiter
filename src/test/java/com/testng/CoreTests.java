@@ -115,6 +115,36 @@ public class CoreTests {
 		assertTrue(response);
 	}
 	
+	@Test
+	public void DnaExample4Pass() {
+		
+		String[] dna = {"ATGCGA"
+					   ,"CAGTAC",
+					    "TTAATG",
+					    "AGACGG",
+					    "GCGGCA",
+					    "TCGTGT"}; 
+		
+		Human human = new Human();
+		boolean response = human.isMutant(dna);
+		assertTrue(response);
+	}
+	
+	@Test
+	public void DnaExample4Fail() {
+		
+		String[] dna = {"ATGCGA"
+					   ,"CAGTAC",
+					    "TTAATG",
+					    "AGACGG",
+					    "GCGTCA",
+					    "TCGTGT"}; 
+		
+		Human human = new Human();
+		boolean response = human.isMutant(dna);
+		assertFalse(response);
+	}
+	
 	
 	@Test
 	public void DnaStress() {

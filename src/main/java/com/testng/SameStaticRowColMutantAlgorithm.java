@@ -6,35 +6,51 @@ public class SameStaticRowColMutantAlgorithm implements MutantAlgorithm {
 	
 	private boolean firstCondition(String actualString,char actualChar,int j) 
 	{
-		boolean thirdLength = actualString.length()>j+3;
-		if (!thirdLength) return false;
+		boolean hasMutantSecuenceLength = actualString.length()>j+mutantSecuence-1;
+		if (!hasMutantSecuenceLength) return false;
 		
-		return actualString.charAt(j+1)==actualChar && actualString.charAt(j+2)==actualChar && actualString.charAt(j+3)==actualChar;
+		for(int index=0;index<mutantSecuence-1;index++) 
+		{
+			if (actualString.charAt(j+index+1)!=actualChar) return false;
+		}
+		return  true;
 	}
 	
-	private boolean secondCondition(String actualString1,String actualString2,String actualString3,char actualChar,int j) 
+	private boolean secondCondition(String[] actualStrings,char actualChar,int j) 
 	{
-		return actualString1.charAt(j)==actualChar && actualString2.charAt(j)==actualChar && actualString3.charAt(j)==actualChar;
+		for (String actualString : actualStrings) 
+		{
+			if (actualString.charAt(j)!=actualChar) return false;
+		}
+		return true;
 	}
 	
-	private boolean thirdCondition(String actualString1,String actualString2,String actualString3,char actualChar,int j) 
+	private boolean thirdCondition(String[] actualStrings,char actualChar,int j) 
 	{
-		boolean thirdLength1 = actualString1.length()>j+3;
-		if (!thirdLength1) return false;
-		boolean thirdLength2 = actualString2.length()>j+3;
-		if (!thirdLength2) return false;
-		boolean thirdLength3 = actualString3.length()>j+3;
-		if (!thirdLength3) return false;
-		
-		return actualString1.charAt(j+1)==actualChar && actualString2.charAt(j+2)==actualChar && actualString3.charAt(j+3)==actualChar;
+		int index=1;
+		for (String actualString : actualStrings) 
+		{
+			boolean mutantSecuenceLength = actualString.length()>j+mutantSecuence-1;
+			if (!mutantSecuenceLength) return false;
+			if (actualString.charAt(j+index)!=actualChar) return false;
+			index++;
+		}
+		return true;
 	}
 	
-	private boolean fourthCondition(String actualString1,String actualString2,String actualString3,char actualChar,int j) 
+	
+	private boolean fourthCondition(String[] actualStrings,char actualChar,int j) 
 	{
-		boolean thirdLength1 = j-3>0;
-		if (!thirdLength1) return false;
+		boolean mutantSecuenceLength1 = j-(mutantSecuence-1)>0;
+		if (!mutantSecuenceLength1) return false;
 		
-		return actualString1.charAt(j-1)==actualChar && actualString2.charAt(j-2)==actualChar && actualString3.charAt(j-3)==actualChar;
+		int index=1;
+		for (String actualString : actualStrings) 
+		{
+			if (actualString.charAt(j-index)!=actualChar) return false;
+			index++;
+		}
+		return true;
 	}
 	
 	public boolean hasMutantSecuence(int i,int j,String[] dna) 
@@ -48,29 +64,30 @@ public class SameStaticRowColMutantAlgorithm implements MutantAlgorithm {
 			return true;
 		} 
 		
-		if (dna.length<=i+3) 
+		if (dna.length<=i+mutantSecuence-1) 
 		{
 			return false;
 		}
 		
-		String actualString1 = dna[i+1];
-		String actualString2 = dna[i+2];
-		String actualString3 = dna[i+3];
+		String[] actualStrings= new String[mutantSecuence-1];
+		for (int index=0;index<mutantSecuence-1;index++) 
+		{
+			actualStrings[index] = dna[i+index+1];
+		}
 		
-		if (secondCondition(actualString1,actualString2,actualString3,actualChar,j))
+		if (secondCondition(actualStrings,actualChar,j))
 		{
 			return true;
 		}
-
-		if (thirdCondition(actualString1,actualString2,actualString3,actualChar,j))
+		if (thirdCondition(actualStrings,actualChar,j))
 		{
 			return true;
 		}
-
-		if (fourthCondition(actualString1,actualString2,actualString3,actualChar,j))
+		if (fourthCondition(actualStrings,actualChar,j))
 		{
 			return true;
 		}
+		
 		return false;
 	}
 	
