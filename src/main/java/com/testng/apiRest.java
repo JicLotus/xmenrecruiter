@@ -24,8 +24,11 @@ import static com.mongodb.client.model.Updates.*;
 import com.mongodb.client.result.UpdateResult;
 import java.util.ArrayList;
 import java.util.List;
-
+import org.apache.log4j.Logger;
 public class apiRest {
+	
+	
+	final static Logger logger = Logger.getLogger(apiRest.class);
 	
 	
 	private static MongoClient mongoClient;
@@ -45,7 +48,7 @@ public class apiRest {
     	}
     	catch(Exception ex) 
     	{
-    		System.out.println(ex.toString());
+    		logger.error("Error creating MongoDB",ex);
     	}
     	
     	
