@@ -2,4 +2,5 @@ language: java
 script:
   - mvn compile
   - mvn package
-  - mvn -Dtest=CoreTests test
+  - mvn -Dtest=test.java.com.testng.CoreTests test
+  - mvn -Dtest=test.java.com.testng.IntegrationTests test

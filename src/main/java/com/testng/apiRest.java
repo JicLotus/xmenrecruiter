@@ -2,6 +2,12 @@ package main.java.com.testng;
 
 import static spark.Spark.*;
 
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+
 public class apiRest {
 	
 	
@@ -11,14 +17,28 @@ public class apiRest {
     	post("/mutant", (request, response) ->{
     		
     		Human human = new Human();
+    		JSONObject jsonObj = new JSONObject(request.body());
     		
-    		String[] dna = new String[]{"ASDD"};
+    		JSONArray jsonArray = jsonObj.getJSONArray("dna");
     		
-    		human.isMutant(dna);
+		  int len = jsonArray.length();
+		  String[] dna = new String[len];
+    		   for (int i=0;i<len;i++){ 
+    			   dna[i] = jsonArray.get(i).toString();
+    		   }
     		
-    		response.status(200);
+    		boolean isMutant = human.isMutant(dna);
     		
-    		return request.bodyAsBytes();
+    		if (isMutant) 
+    		{
+    			response.status(200);	
+    		}else
+    		{
+    			response.status(403);
+    		}
+    		
+    		
+    		return "";
     		
     	} );
     }
