@@ -5,6 +5,11 @@ import org.bson.Document;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import com.mongodb.client.FindIterable;
+
 public class XMenRecruitmentServices {
 
 	final static Logger logger = Logger.getLogger(XMenRecruitmentServices.class);	
@@ -24,27 +29,17 @@ public class XMenRecruitmentServices {
 	{
 		try {
 			Human human = new Human();
-			JSONObject jsonObj = new JSONObject(jsonDna);
-			
-			JSONArray jsonArray = jsonObj.getJSONArray("dna");
-    		
-			int len = jsonArray.length();
-			String[] dna = new String[len];
-			String flatDna="";
-			for (int i=0;i<len;i++){ 
-				dna[i] = jsonArray.get(i).toString();
-				flatDna+=dna[i];
-			}
+			String[] dna = getStringArrayFromJsonArrayString(jsonDna);
+			String flatDna = String.join("", dna);
 			
 			boolean isMutant = human.isMutant(dna);
-			Document doc = new Document("dna", flatDna);
 			
 			if (isMutant) 
 			{
-				dataBase.getMutantCollection().insertOne(doc);
+				dataBase.insertMutantDocument("dna",flatDna);
 			}else
 			{
-				dataBase.getHumanCollection().insertOne(doc);
+				dataBase.insertHumanDocument("dna",flatDna);
 			}
 			
 			return isMutant;
@@ -54,6 +49,21 @@ public class XMenRecruitmentServices {
 			logger.error("Error in isAMutantDNA: ",ex);
 			return false;
 		}
+	}
+	
+	
+	public String[] getStringArrayFromJsonArrayString(String jsonDna) 
+	{
+		JSONObject jsonObj = new JSONObject(jsonDna);
+		JSONArray jsonArray = jsonObj.getJSONArray("dna");
+		
+		int len = jsonArray.length();
+		String[] stringArray = new String[len];
+		for (int i=0;i<len;i++){ 
+			stringArray[i] = jsonArray.get(i).toString();
+		}
+		
+		return stringArray;
 	}
 	
 	public boolean eraseCollections() 
@@ -70,10 +80,11 @@ public class XMenRecruitmentServices {
 		
 	}
 	
+	
 	public String getStats() {
 		try {
-			long countMutant = dataBase.getMutantCollection().count();
-			long countHuman = dataBase.getHumanCollection().count();
+			long countMutant = dataBase.getMutantCount();
+			long countHuman = dataBase.getHumanCount();
 			float totalCount = (countMutant+countHuman);
 			float ratio;
 			ratio = (countMutant+countHuman)==0 ? (float )0: (float)(countMutant / totalCount);

@@ -34,6 +34,25 @@ public class DataBaseHandler {
     	}
 	}
 	
+	
+	public void insertHumanDocument(String key,String value) 
+	{
+		insertDocument(key,value,this.getHumanCollection());
+	}
+	
+	public void insertMutantDocument(String key,String value) 
+	{
+		insertDocument(key,value,this.getMutantCollection());
+	}
+	
+	private void insertDocument(String key,String value,MongoCollection<Document> collection) 
+	{
+		Document doc = new Document(key, value);
+		if (collection.count(doc)==0) {
+			collection.insertOne(doc);
+		}
+	}
+	
 	public void eraseCollections()
 	{
 		Document doc = new Document();
@@ -41,12 +60,22 @@ public class DataBaseHandler {
 		humanCollection.deleteMany(doc);
 	}
 	
-	public MongoCollection<Document> getMutantCollection()
+	public long getMutantCount() 
+	{
+		return getMutantCollection().count();
+	}
+	
+	public long getHumanCount() 
+	{
+		return getHumanCollection().count();
+	}
+	
+	private MongoCollection<Document> getMutantCollection()
 	{
 		return mutantCollection;
 	}
 
-	public MongoCollection<Document> getHumanCollection()
+	private MongoCollection<Document> getHumanCollection()
 	{
 		return humanCollection;
 	}

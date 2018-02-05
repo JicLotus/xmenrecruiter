@@ -30,6 +30,20 @@ public class IntegrationTests {
 	}
 	
 	@Test
+	public void sendingsSomeCrapAndTestResultCode() 
+	{
+		try {
+			String dna="SADIJJSADASD";
+			String stat= "{\"count_mutant_dna\":0, \"count_human_dna\":0 \"ratio\":0.0}";
+			sendDNAandCheckStat(dna,403,stat);
+		}catch(Exception ex)
+		{
+			fail(ex.toString());
+		}
+	}
+	
+	
+	@Test
 	public void simpleIntegrationTestHas200ForCodeResponse() 
 	{
 		try {
@@ -79,7 +93,7 @@ public class IntegrationTests {
 		try {
 			
 			String dna="{ dna:[\"ATGCGA\",\"CAGTGC\",\"TTATGT\",\"AGAAGG\",\"CCCCTA\",\"TCACTG\"] }";
-			String stat= "{\"count_mutant_dna\":1, \"count_human_dna\":0 \"ratio\":1}";
+			String stat= "{\"count_mutant_dna\":1, \"count_human_dna\":0 \"ratio\":1.0}";
 			
 			for (int i =0;i<10;i++) {
 				sendDNAandCheckStat(dna,200,stat);
