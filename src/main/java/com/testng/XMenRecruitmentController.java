@@ -7,7 +7,7 @@ public class XMenRecruitmentController {
 
 	public XMenRecruitmentController(final XMenRecruitmentServices xMenRecruitmentServices) 
 	{
-		post("/mutant", (request, response) ->{
+		post("/mutant/", (request, response) ->{
 			boolean serviceResponse=xMenRecruitmentServices.isAMutantDNA(request.body());
 			
 			if (serviceResponse) response.status(200);
@@ -16,6 +16,8 @@ public class XMenRecruitmentController {
 			return "";
 		});
 		
-    	get("/stat/", (request, response) -> xMenRecruitmentServices.getStats());
+    	get("/stat", (request, response) -> xMenRecruitmentServices.getStats());
+    	
+    	get("/eraseMutants", (request, response) -> xMenRecruitmentServices.eraseCollections());
 	}
 }

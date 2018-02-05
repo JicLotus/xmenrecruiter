@@ -11,7 +11,8 @@ public class apiRest {
     	
     	try 
     	{
-    		new XMenRecruitmentController(new XMenRecruitmentServices());
+    		XMenRecruitmentServices service = args!=null &&args.length>=1 ? new XMenRecruitmentServices(args[0]):new XMenRecruitmentServices();
+    		new XMenRecruitmentController(service);
     	}catch(Exception ex) 
     	{
     		logger.error("Intern error",ex);
