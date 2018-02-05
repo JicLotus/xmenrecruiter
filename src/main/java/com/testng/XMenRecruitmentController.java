@@ -3,6 +3,9 @@ package main.java.com.testng;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
+
+
+
 public class XMenRecruitmentController {
 
 	public XMenRecruitmentController(final XMenRecruitmentServices xMenRecruitmentServices) 
@@ -16,8 +19,14 @@ public class XMenRecruitmentController {
 			return "";
 		});
 		
-    	get("/stat", (request, response) -> xMenRecruitmentServices.getStats());
+    	get("/stat", (request, response) -> {
+    		response.type("application/json");
+    		return xMenRecruitmentServices.getStats();
+    	});
+    	
     	
     	get("/eraseMutants", (request, response) -> xMenRecruitmentServices.eraseCollections());
 	}
 }
+
+

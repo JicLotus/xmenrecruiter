@@ -48,7 +48,7 @@ public class IntegrationTests {
 	{
 		try {
 			String dna="{ dna:[\"ATGCGA\",\"CAGTGC\",\"TTATGT\",\"AGAAGG\",\"CCCCTA\",\"TCACTG\"] }";
-			String stat= "{\"count_mutant_dna\":1, \"count_human_dna\":0 \"ratio\":1.0}";
+			String stat= "{\"count_mutant_dna\":1, \"count_human_dna\":0 \"ratio\":0.0}";
 			sendDNAandCheckStat(dna,200,stat);
 		}catch(Exception ex)
 		{
@@ -93,14 +93,14 @@ public class IntegrationTests {
 		try {
 			
 			String dna="{ dna:[\"ATGCGA\",\"CAGTGC\",\"TTATGT\",\"AGAAGG\",\"CCCCTA\",\"TCACTG\"] }";
-			String stat= "{\"count_mutant_dna\":1, \"count_human_dna\":0 \"ratio\":1.0}";
+			String stat= "{\"count_mutant_dna\":1, \"count_human_dna\":0 \"ratio\":0.0}";
 			
 			for (int i =0;i<10;i++) {
 				sendDNAandCheckStat(dna,200,stat);
 			}
 			
 			dna = "{ dna:[\"ATGCGA\",\"CAGTGC\",\"TTATGT\",\"AGTAAG\",\"ACCCTA\",\"TCACTG\"] }";
-			stat = "{\"count_mutant_dna\":1, \"count_human_dna\":1 \"ratio\":0.5}";
+			stat = "{\"count_mutant_dna\":1, \"count_human_dna\":1 \"ratio\":1.0}";
 			
 			for (int i =0;i<10;i++) {
 				sendDNAandCheckStat(dna,403,stat);

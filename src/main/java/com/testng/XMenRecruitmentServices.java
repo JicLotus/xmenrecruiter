@@ -85,9 +85,8 @@ public class XMenRecruitmentServices {
 		try {
 			long countMutant = dataBase.getMutantCount();
 			long countHuman = dataBase.getHumanCount();
-			float totalCount = (countMutant+countHuman);
 			float ratio;
-			ratio = (countMutant+countHuman)==0 ? (float )0: (float)(countMutant / totalCount);
+			ratio = (countHuman)==0 ? (float )0: (float)(countMutant / countHuman);
 			return "{\"count_mutant_dna\":"+countMutant+", \"count_human_dna\":"+countHuman+" \"ratio\":"+ratio+"}";
 		}
 		catch(Exception ex)
