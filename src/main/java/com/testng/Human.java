@@ -26,8 +26,28 @@ public class Human {
 		return elements.length()>1;
 	}
 	
+	public boolean isAValidChar(char _char) 
+	{
+		return _char=='A'||_char=='T' ||_char=='G'||_char=='C';
+	}
+	
+	public boolean isAValidDna(String[] dna) 
+	{
+		int heigh=dna.length;
+		for (int i =0;i< dna.length;i++) 
+		{
+			String actualString = dna[i];
+			if (actualString.length()!=heigh)return false;
+		}
+		return true;
+	}
+	
 	public boolean isMutant(String[] dna) 
 	{
+		if (!isAValidDna(dna)) 
+		{
+			return false;
+		}
 		
 		for (int i =0;i< dna.length;i++) 
 		{
@@ -36,14 +56,18 @@ public class Human {
 			{
 				char actualChar= actualString.charAt(j);
 				
-				if (!hasDnaElement(actualChar) && mutantAlgorithm.hasMutantSecuence(i,j,dna))
+				if (isAValidChar(actualChar)) 
 				{
-					addDnaElement(actualChar);
-					if (amIAMutant()) 
+					if (!hasDnaElement(actualChar) && mutantAlgorithm.hasMutantSecuence(i,j,dna))
 					{
-						return true;
+						addDnaElement(actualChar);
+						if (amIAMutant()) 
+						{
+							return true;
+						}
 					}
 				}
+				
 			}
 		}
 		

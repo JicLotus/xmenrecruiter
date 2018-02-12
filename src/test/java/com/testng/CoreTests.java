@@ -21,6 +21,39 @@ public class CoreTests {
 	}
 	
 	@Test
+	public void ItIsNotMutantDnaBecauseItIsNotSqaredMatrix() 
+	{
+		String[] dna = {"AAAA",
+						"CCCC"}; 
+	
+		Human human = new Human();
+	
+		boolean isMutant = human.isMutant(dna);
+	
+		assertFalse(isMutant);
+	}
+	
+	
+	@Test
+	public void ItIsNotMutantDnaBecauseItHasInvalidCharSecuence() 
+	{
+		String[] dna = {".TGCTA",
+						"C.GTGC",
+						"TT.TGT",
+						"AGA.GG",
+						"CCCCTA",
+				    	"TCACTT"}; 
+	
+		Human human = new Human();
+	
+		boolean isMutant = human.isMutant(dna);
+	
+		assertFalse(isMutant);
+	}
+	
+	
+	
+	@Test
 	public void DnaExamplePass() {
 		
 		String[] dna = {"ATGCGA"
