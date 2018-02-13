@@ -1,4 +1,4 @@
-package main.java.com.testng;
+package main.java.com;
 
 import org.apache.log4j.Logger;
 import org.bson.Document;

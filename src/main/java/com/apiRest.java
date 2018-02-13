@@ -1,6 +1,9 @@
-package main.java.com.testng;
+package main.java.com;
 
 import org.apache.log4j.Logger;
+
+import main.java.com.controllers.XMenRecruitmentController;
+import main.java.com.services.XMenRecruitmentServices;
 
 public class apiRest {
 	

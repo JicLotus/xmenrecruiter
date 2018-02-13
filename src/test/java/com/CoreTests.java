@@ -1,8 +1,8 @@
-package test.java.com.testng;
+package test.java.com;
 
 import org.junit.Test;
 
-import main.java.com.testng.Human;
+import main.java.com.Human;
 
 import static org.junit.Assert.*;
 
@@ -201,7 +201,7 @@ public class CoreTests {
 		}
 		catch(IOException e) 
 		{
-			e.printStackTrace();
+			fail(e.toString());
 		}
 		
 	}

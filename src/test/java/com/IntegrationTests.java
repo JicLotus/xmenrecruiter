@@ -1,4 +1,4 @@
-package test.java.com.testng;
+package test.java.com;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -10,7 +10,8 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import main.java.com.testng.apiRest;
+import main.java.com.apiRest;
+
 import static org.junit.Assert.*;
 
 public class IntegrationTests {
@@ -34,7 +35,7 @@ public class IntegrationTests {
 	{
 		try {
 			String dna="SADIJJSADASD";
-			String stat= "{\"count_mutant_dna\":0, \"count_human_dna\":0 \"ratio\":0.0}";
+			String stat= "{\"count_mutant_dna\":0,\"count_human_dna\":0,\"ratio\":0.0}";
 			sendDNAandCheckStat(dna,403,stat);
 		}catch(Exception ex)
 		{
@@ -48,7 +49,7 @@ public class IntegrationTests {
 	{
 		try {
 			String dna="{ dna:[\"ATGCGA\",\"CAGTGC\",\"TTATGT\",\"AGAAGG\",\"CCCCTA\",\"TCACTG\"] }";
-			String stat= "{\"count_mutant_dna\":1, \"count_human_dna\":0 \"ratio\":0.0}";
+			String stat= "{\"count_mutant_dna\":1,\"count_human_dna\":0,\"ratio\":0.0}";
 			sendDNAandCheckStat(dna,200,stat);
 		}catch(Exception ex)
 		{
@@ -61,7 +62,7 @@ public class IntegrationTests {
 	{
 		try {
 			String dna = "{ dna:[\"ATGCGA\",\"CAGTGC\",\"TTATGT\",\"AGTAAG\",\"ACCCTA\",\"TCACTG\"] }";
-			String stat = "{\"count_mutant_dna\":0, \"count_human_dna\":1 \"ratio\":0.0}";
+			String stat = "{\"count_mutant_dna\":0,\"count_human_dna\":1,\"ratio\":0.0}";
 			sendDNAandCheckStat(dna,403,stat);
 		}catch(Exception ex) 
 		{
@@ -93,14 +94,14 @@ public class IntegrationTests {
 		try {
 			
 			String dna="{ dna:[\"ATGCGA\",\"CAGTGC\",\"TTATGT\",\"AGAAGG\",\"CCCCTA\",\"TCACTG\"] }";
-			String stat= "{\"count_mutant_dna\":1, \"count_human_dna\":0 \"ratio\":0.0}";
+			String stat= "{\"count_mutant_dna\":1,\"count_human_dna\":0,\"ratio\":0.0}";
 			
 			for (int i =0;i<10;i++) {
 				sendDNAandCheckStat(dna,200,stat);
 			}
 			
 			dna = "{ dna:[\"ATGCGA\",\"CAGTGC\",\"TTATGT\",\"AGTAAG\",\"ACCCTA\",\"TCACTG\"] }";
-			stat = "{\"count_mutant_dna\":1, \"count_human_dna\":1 \"ratio\":1.0}";
+			stat = "{\"count_mutant_dna\":1,\"count_human_dna\":1,\"ratio\":1.0}";
 			
 			for (int i =0;i<10;i++) {
 				sendDNAandCheckStat(dna,403,stat);

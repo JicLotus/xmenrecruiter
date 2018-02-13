@@ -1,23 +1,27 @@
-package main.java.com.testng;
+package main.java.com.services;
 
 import org.apache.log4j.Logger;
-import org.bson.Document;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.client.FindIterable;
+import main.java.com.DataBaseHandler;
+import main.java.com.Human;
+import main.java.com.responses.ErrorResponse;
+import main.java.com.responses.StatResponse;
+import com.google.gson.Gson;
+
+import main.java.com.models.Dna;
 
 public class XMenRecruitmentServices {
 
 	final static Logger logger = Logger.getLogger(XMenRecruitmentServices.class);	
 	DataBaseHandler dataBase;
+	Gson gson;
 	
 	public XMenRecruitmentServices(String dbName) 
 	{
 		dataBase = new DataBaseHandler(dbName);
+		gson = new Gson();
 	}
 
 	public XMenRecruitmentServices() 
@@ -29,17 +33,18 @@ public class XMenRecruitmentServices {
 	{
 		try {
 			Human human = new Human();
-			String[] dna = getStringArrayFromJsonArrayString(jsonDna);
-			String flatDna = String.join("", dna);
+			Dna dnaClass = gson.fromJson(jsonDna, Dna.class);
+			String[] dna = dnaClass.getDna();
 			
+			String flatDna = String.join("", dna);
 			boolean isMutant = human.isMutant(dna);
 			
 			if (isMutant) 
 			{
-				dataBase.insertMutantDocument("dna",flatDna);
+				dataBase.insertMutantDocument(flatDna,jsonDna);
 			}else
 			{
-				dataBase.insertHumanDocument("dna",flatDna);
+				dataBase.insertHumanDocument(flatDna,jsonDna);
 			}
 			
 			return isMutant;
@@ -49,21 +54,6 @@ public class XMenRecruitmentServices {
 			logger.error("Error in isAMutantDNA: ",ex);
 			return false;
 		}
-	}
-	
-	
-	public String[] getStringArrayFromJsonArrayString(String jsonDna) 
-	{
-		JSONObject jsonObj = new JSONObject(jsonDna);
-		JSONArray jsonArray = jsonObj.getJSONArray("dna");
-		
-		int len = jsonArray.length();
-		String[] stringArray = new String[len];
-		for (int i=0;i<len;i++){ 
-			stringArray[i] = jsonArray.get(i).toString();
-		}
-		
-		return stringArray;
 	}
 	
 	public boolean eraseCollections() 
@@ -85,14 +75,23 @@ public class XMenRecruitmentServices {
 		try {
 			long countMutant = dataBase.getMutantCount();
 			long countHuman = dataBase.getHumanCount();
+			
 			float ratio;
 			ratio = (countHuman)==0 ? (float )0: (float)(countMutant / countHuman);
-			return "{\"count_mutant_dna\":"+countMutant+", \"count_human_dna\":"+countHuman+" \"ratio\":"+ratio+"}";
+			
+			StatResponse statResponse = new StatResponse();
+			statResponse.setCountMutant(countMutant);
+			statResponse.setCountHuman(countHuman);
+			statResponse.setRatio(ratio);
+			
+			return gson.toJson(statResponse);
 		}
 		catch(Exception ex)
 		{
 			logger.error("Error in getStats: ",ex);
-			return "{\"Error\":" + ex.toString() + "}";	
+			ErrorResponse error = new ErrorResponse();
+			error.setDescription(ex.toString());
+			return gson.toJson(error);
 		}
 		
 	}

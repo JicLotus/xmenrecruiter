@@ -1,4 +1,7 @@
-package main.java.com.testng;
+package main.java.com;
+
+import main.java.com.algorithm.MutantAlgorithm;
+import main.java.com.algorithm.SameStaticRowColMutantAlgorithm;
 
 public class Human {
 
@@ -19,27 +22,31 @@ public class Human {
 	private void addDnaElement(char c) {
 		elements+=c;
 	}
-	
 
 	private boolean amIAMutant() 
 	{
 		return elements.length()>1;
 	}
 	
-	public boolean isAValidChar(char _char) 
+	private boolean isAValidChar(char _char) 
 	{
 		return _char=='A'||_char=='T' ||_char=='G'||_char=='C';
 	}
 	
-	public boolean isAValidDna(String[] dna) 
+	private boolean isAValidDna(String[] dna) 
 	{
-		int heigh=dna.length;
+		int height=dna.length;
 		for (int i =0;i< dna.length;i++) 
 		{
 			String actualString = dna[i];
-			if (actualString.length()!=heigh)return false;
+			if (actualString.length()!=height)return false;
 		}
 		return true;
+	}
+	
+	private boolean mainConditions(char actualChar,int i,int j, String[] dna) 
+	{
+		return isAValidChar(actualChar) && !hasDnaElement(actualChar) && mutantAlgorithm.hasMutantSecuence(i,j,dna);
 	}
 	
 	public boolean isMutant(String[] dna) 
@@ -56,21 +63,15 @@ public class Human {
 			{
 				char actualChar= actualString.charAt(j);
 				
-				if (isAValidChar(actualChar)) 
-				{
-					if (!hasDnaElement(actualChar) && mutantAlgorithm.hasMutantSecuence(i,j,dna))
+				if (mainConditions(actualChar,i,j,dna)) {
+					addDnaElement(actualChar);
+					if (amIAMutant()) 
 					{
-						addDnaElement(actualChar);
-						if (amIAMutant()) 
-						{
-							return true;
-						}
+						return true;
 					}
 				}
-				
 			}
 		}
-		
 		return false;	
 	}
 	

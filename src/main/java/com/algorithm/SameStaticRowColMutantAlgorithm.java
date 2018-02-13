@@ -1,4 +1,4 @@
-package main.java.com.testng;
+package main.java.com.algorithm;
 
 public class SameStaticRowColMutantAlgorithm implements MutantAlgorithm {
 
