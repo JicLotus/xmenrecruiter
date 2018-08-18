@@ -21,7 +21,7 @@ public class DataBaseHandler {
 	public DataBaseHandler(String dbName) 
 	{
     	try {
-    		MongoClientURI uri = new MongoClientURI("mongodb+srv://jiclotus:1q2w3e4r*@xmenrecruitercluster-3vrfa.mongodb.net/test");
+    		MongoClientURI uri = new MongoClientURI("mongodb+srv://connection");
     		
     		mongoClient = new MongoClient(uri);
     		database = mongoClient.getDatabase(dbName);
